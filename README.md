@@ -1,1 +1,1 @@
-# Labs
+# Notes and Lab Solutions

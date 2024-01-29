@@ -14,8 +14,8 @@ create table employees(
 
 #### Adding, modifying, and dropping columns
 ```sql
-alter table employees add(department char(3));
-alter table employees modify(department varchar(3));
+alter table employees add department char(3);
+alter table employees modify department varchar(3);
 alter table employees drop column department;
 ```
 
