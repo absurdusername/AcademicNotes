@@ -60,8 +60,7 @@ void permute(int i) {
     /*
     otherwise recursively build every permutation one index at a time
     */
-    int j = i;
-    for (j = i; j < N; j++) { 
+    for (int j = i; j < N; j++) { 
         swap(temporary_permutation + i, temporary_permutation + j);
         permute(i + 1);
         swap(temporary_permutation + i, temporary_permutation + j);
