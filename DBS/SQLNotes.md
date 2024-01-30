@@ -53,6 +53,8 @@ drop table slaves;
 
 ## Lab Two
 
+### Constraints
+
 #### Creating tables with constraints
 
 ```sql
@@ -109,15 +111,33 @@ alter table slaves
 modify salary default 1000;
 ```
 
-#### Joins 
+### Joins 
 
-[SQL Bolt Lesson 6: Multi-table queries with joins](https://sqlbolt.com/lesson/select_queries_with_joins) (inner joins)
+#### References
 
-[SQL Bolt Lesson 7: Outer Joins](https://sqlbolt.com/lesson/select_queries_with_outer_joins) (left, right, and full joins)
+- [SQL Bolt Lesson 6: Multi-table queries with joins](https://sqlbolt.com/lesson/select_queries_with_joins) (```inner join```)
 
-This [StackOverflow answer](https://stackoverflow.com/questions/8696383/difference-between-natural-join-and-inner-join/8696397#8696397) illuminates the details of natural joins. 
+- [SQL Bolt Lesson 7: Outer Joins](https://sqlbolt.com/lesson/select_queries_with_outer_joins) (```left join```, ```right join```, and ```full join```)
 
-TLDR: Joins are "cross product + selection." Natural joins are like inner joins, but they help you be lazy.
+- [StackOverflow answer](https://stackoverflow.com/questions/8696383/difference-between-natural-join-and-inner-join/8696397#8696397) about natural join relates to inner joins
+
+TLDR. Joins are "cross product + selection." ```natural join``` works like ```inner join```, except that columns with matching names are equated.
+
+#### Using Joins Correctly
+
+To select from  ```(instructor natural join teaches)``` x `course`
+
+```sql
+select name, title
+from instructor natural join teaches, course
+where teaches.course_id = course.course_id;
+```
+
+Because ```natural join``` works like ```inner join```, the following snippet would not produce the same result. 
+```sql
+select name, title
+from instructor natural join teaches natural join course
+```
 
 ## Lab Three
 

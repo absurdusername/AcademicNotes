@@ -43,9 +43,9 @@ int cost() {
 void permute(int i) {
     /*
     if i = N (number of people or jobs) do
-        if cost of working_permutation < cost of best_permutation do
-            best_permutation = working_permutation
-            best_cost = cost of working_permutation
+        if cost of temporary_permutation < cost of best_permutation do
+            best_permutation = temporary_permutation
+            best_cost = cost of temporary_permutation
         return
     */
     if (i == N) {
