@@ -49,7 +49,7 @@ void insert_edge(int from, int to) {
 }
 
 void dfs(int s, node *visited) {
-    printf("%d ", s + 1);
+    printf("%d ", s);
     append(&visited, s);
     
     for (node *edge = G[s]; edge; edge = edge->next)
@@ -61,13 +61,13 @@ void bfs(int s) {
     node *queue = NULL; // FIFO queue of nodes to visit
     node *visited = NULL; // set of visited nodes
 
-    printf("%d ", s + 1);
+    printf("%d ", s);
     append(&queue, s);
 
     for (int v = delete_left(&queue); v != -1; v = delete_left(&queue)) {
         for (node *edge = G[v]; edge; edge = edge->next) {
             if (!contains(visited, edge->val)) {
-                printf("%d ", edge->val + 1);
+                printf("%d ", edge->val);
                 append(&visited, edge->val);
                 append(&queue, edge->val);
             }
@@ -94,7 +94,7 @@ int main() {
         scanf("%d", &to);
         if (to == -1)
             break;
-        insert_edge(from - 1, to - 1);
+        insert_edge(from, to);
     }
 
     int s;
@@ -102,8 +102,8 @@ int main() {
     scanf("%d", &s);
 
     printf("DFS: ");
-    dfs(s - 1, NULL);
+    dfs(s, NULL);
 
     printf("\n\nBFS: ");
-    bfs(s - 1);
+    bfs(s);
 }
