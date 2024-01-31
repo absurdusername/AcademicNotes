@@ -7,11 +7,8 @@
 #### Set operations
 
 - ```union```
-- ```union all``` (retains duplicates)
 - ```intersect```
-- ```intersect all``` (retains duplicates)
-- ```except``` (minus)
-- ```except all``` (retains duplicates)
+- ```minus``` 
 
 #### Null values
 

@@ -41,7 +41,7 @@ having avg(salary) > all(
 );
 ```
 
-### Test for empty relations
+#### Exists
 
 ```sql
 select course
@@ -56,3 +56,29 @@ where semester = 'Fall' and year = 2009 and
 ```
 
 This is a correlation subquery, because `S` from the outer query is used in the subquery.
+
+#### Test for uniqueness
+
+```sql
+select course_id
+from course
+where course_id in (
+    select course_id 
+    from section
+    group by course_id
+    having count(*) > 1
+);
+```
+
+#### Lateral joins
+
+[Explanation](https://docs.snowflake.com/en/sql-reference/constructs/join-lateral) by Snowflake
+
+```sql
+select I1.name, I1.salary, dept_avg_salary
+from instructor I1, lateral (
+    select avg(salary) as dept_avg_salary
+    from instructor I2
+    where I1.dept_name = I2.dept_name
+);
+```
