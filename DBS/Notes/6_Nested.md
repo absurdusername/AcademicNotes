@@ -45,11 +45,11 @@ having avg(salary) > all(
 
 ```sql
 select course
-from section as S
+from section S
 where semester = 'Fall' and year = 2009 and
     exists(
         select * 
-        from section as T
+        from section T
         where semester = 'Spring' and year = 2010 and
             S.course_id = T.course_id
     );

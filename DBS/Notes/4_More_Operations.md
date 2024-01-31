@@ -34,6 +34,6 @@ Aggregate functions like `sum()` ignore null values.
 
 ```sql
 select distinct T.name
-from instructor as T, instructor as S where T.salary > S.salary and S.dept
+from instructor T, instructor S where T.salary > S.salary and S.dept
 name = ’Biology’;
 ```

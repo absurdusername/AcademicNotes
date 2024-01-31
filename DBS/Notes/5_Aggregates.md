@@ -14,7 +14,7 @@ where semester = ’Spring’ and year = 2010;
 #### Group by and having
 
 ```sql
-select dept_name, avg(salary) as avg_salary
+select dept_name, avg(salary) avg_salary
 from instructor
 group by dept_name
 having avg(salary) > 42000;
