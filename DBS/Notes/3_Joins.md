@@ -6,7 +6,7 @@
 select * from r1 join r2 using (A1, A2);
 ```
 
-### Using joins correctly
+#### Using joins correctly
 
 To select from  ```(instructor natural join teaches)``` x `course`
 
