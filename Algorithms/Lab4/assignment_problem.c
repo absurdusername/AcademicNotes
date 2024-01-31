@@ -15,6 +15,9 @@ int *temporary_permutation;
 int *best_permutation;
 int best_cost;
 
+// "opcount"
+int iter;
+
 void swap(int *a, int *b) {
     int tmp = *a;
     *a = *b;
@@ -24,8 +27,10 @@ void swap(int *a, int *b) {
 int cost() {
     /* Return the cost of temporary_permutation */
     int c = 0;
-    for (int i = 0; i < N; i++)
+    for (int i = 0; i < N; i++) {
+        iter++;
         c += cost_matrix[i][temporary_permutation[i]];
+    }
     return c;
 }
 
@@ -37,9 +42,11 @@ void init() {
 
     // Any valid permutation will do, this here is one such
     for (int i = 0; i < N; i++) {
+        iter++;
         best_permutation[i] = i;
         temporary_permutation[i] = i;
     }
+
     best_cost = cost();
 }
 
@@ -62,6 +69,7 @@ void permute(int i) {
 
     // recursively build every permutation one index at a time
     for (int j = i; j < N; j++) { 
+        iter++;
         swap(temporary_permutation + i, temporary_permutation + j);
         permute(i + 1);
         swap(temporary_permutation + i, temporary_permutation + j);
@@ -69,27 +77,33 @@ void permute(int i) {
 }
 
 int main() {
-    /* Input the cost matrix */
-    printf("How many people (or jobs): ");
-    scanf("%d", &N);
+    while (1) {
+        // Input the cost matrix 
+        printf("\nHow many people (or jobs): ");
+        scanf("%d", &N);
 
-    cost_matrix = malloc(N * sizeof(*cost_matrix));
-    for (int i = 0; i < N; i++) {
-        printf("\nEnter the costs for person %d: ", i);
+        cost_matrix = malloc(N * sizeof(*cost_matrix));
+        for (int i = 0; i < N; i++) {
+            printf("\nEnter the %d costs for person %d: ", N, i);
 
-        cost_matrix[i] = malloc(N * sizeof(**cost_matrix));
-        for (int j = 0; j < N; j++) 
-            scanf("%d", &(cost_matrix[i][j]));
+            cost_matrix[i] = malloc(N * sizeof(**cost_matrix));
+            for (int j = 0; j < N; j++) 
+                scanf("%d", &(cost_matrix[i][j]));
+        }
+
+        // Set arbitrary default for best_permutation and temporary_permutation
+        init();
+
+        // Opcount to 0
+        iter = 0;
+
+        // Recursive brute-force search for lowest-cost permutation 
+        permute(0);
+        
+        // Display best_permutation 
+        for (int i = 0; i < N; i++) 
+            printf("\nperson %d = job %d \n", i, best_permutation[i]);
+
+        printf("\nIterations = %d\n", iter);
     }
-
-    /* Set arbitrary default for best_permutation and temporary_permutation */
-    init();
-
-    /* Recursive brute-force search for lowest-cost permutation */
-    permute(0);
-    
-    /* Display best_permutation */
-    for (int i = 0; i < N; i++) 
-        printf("\nperson %d = job %d \n", i, best_permutation[i]);
-    printf("\n");
 }
