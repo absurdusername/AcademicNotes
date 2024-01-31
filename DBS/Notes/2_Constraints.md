@@ -7,7 +7,8 @@ create table employees(
     id				int             primary key,
     another_id		int             unique,
     name			varchar(40)     not null,
-    department      char(3)         default('DEF') check(department in ('ABC', 'DEF'))
+    department      char(3)         default('DEF'),
+    check(department in ('ABC', 'DEF'))
 );
 
 create table slaves(
