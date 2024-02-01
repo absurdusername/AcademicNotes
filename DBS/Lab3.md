@@ -8,28 +8,28 @@ create view spring2010 as
 select course_id, title from course natural join section where (semester='Spring' and year=2010);
 ```
 
-#### Union: Find courses that ran in Fall 2009 OR Spring 2010
+#### 1. Union: Find courses that ran in Fall 2009 OR Spring 2010
 ```sql
 select * from fall2009 
 union
 select * from spring2010;
 ```
 
-#### Intersection: AND
+#### 2. Intersection: AND
 ```sql
 select * from fall2009 
 intersect
 select * from spring2010;
 ```
 
-#### Minus
+#### 3. Minus
 ```sql
 select * from fall2009 
 minus
 select * from spring2010;
 ```
 
-#### Zero-student courses
+#### 4. Zero-student courses
 ```sql
 select title from course
 minus
@@ -39,6 +39,8 @@ select title from course natural join takes;
 
 ### Nested Queries
 
+#### 5
+
 ```sql
 select * from fall2009
 where course_id in (
@@ -47,6 +49,8 @@ where course_id in (
     where semester = 'Spring' and year = 2010
 );
 ```
+
+#### 6
 
 ```sql
 select count(distinct takes.ID)
@@ -58,6 +62,8 @@ where course_id in (
 );
 ```
 
+#### 7
+
 ```sql
 select * from fall2009 
 where course_id not in (
@@ -66,6 +72,8 @@ where course_id not in (
     where semester = 'Spring' and year = 2010
 );
 ```
+
+#### 8
 
 ```sql
 select name
@@ -78,6 +86,8 @@ where name in (
 
 ### Set comparision
 
+#### 9
+
 ```sql
 select name
 from instructor
@@ -88,6 +98,8 @@ where salary > some (
 );
 ```
 
+#### 10 
+
 ```sql
 select name
 from instructor
@@ -97,6 +109,8 @@ where salary > all (
     where dept_name = 'Biology'
 );
 ```
+
+#### 11
 
 ```sql
 select dept_name, avg(salary) dept_avg_salary
@@ -109,6 +123,8 @@ having avg(salary) >= all (
 );
 ```
 
+#### 12
+
 ```sql
 select dept_name
 from department
@@ -120,6 +136,8 @@ where budget < (
 
 ### Test for empty relations
 
+#### 13
+
 ```sql
 select * from fall2009
 where exists (
@@ -128,6 +146,8 @@ where exists (
     where semester = 'Spring' and year = 2010
 );
 ```
+
+#### 14
 
 ```sql
 select S.ID, S.name
@@ -138,6 +158,8 @@ where not exists (
     select course_id from takes T where T.ID = S.ID
 );
 ```
+
+#### 15
 
 ### Test for absence of duplicates
 
@@ -151,8 +173,10 @@ where 1 >= (
 );
 ```
 
+#### 16
+
 ```sql
-select distinct S.ID, S.name
+select S.ID, S.name
 from student S
 where 1 < (
     select count(*)
@@ -168,6 +192,8 @@ where 1 < (
 
 ### Subqueries in the from clause
 
+#### 17
+
 ```sql
 select dept_name, avg_salary
 from (
@@ -178,6 +204,8 @@ from (
 ```
 
 ### Views
+
+#### 18
 
 ```sql
 create view all_courses as 
@@ -191,11 +219,13 @@ and course_id in (
 );
 ```
 
+#### 19
+
 ```sql
 select * from all_courses;
 ```
 
-### Question twenty
+### Many ways to do 20
 
 `lateral`
 ```sql
