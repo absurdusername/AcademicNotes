@@ -77,8 +77,15 @@ from (
 ) where avg_salary > 42000;
 ```
 
-
-
+#### 10
+```sql
+select course_id, sec_id, enrolment
+from (
+    select course_id, sec_id, semester, year, count(*) as enrolment
+    from takes
+    group by (course_id, sec_id, semester, year)
+) where semester = 'Spring' and year = 2010;
+```
 
 
 
