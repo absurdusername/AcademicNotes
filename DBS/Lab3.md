@@ -139,11 +139,13 @@ where budget < (
 #### 13
 
 ```sql
-select * from fall2009
+select course_id, title
+from fall2009
 where exists (
     select *
-    from course natural join section
-    where semester = 'Spring' and year = 2010
+    from (course natural join section) T
+    where semester = 'Spring' and year = 2010 and
+        fall2009.course_id = T.course_id
 );
 ```
 
@@ -200,7 +202,7 @@ from (
     select dept_name, avg(salary) as avg_salary
     from instructor
     group by dept_name
-) having avg_salary > 42000;
+) where avg_salary > 42000;
 ```
 
 ### Views
