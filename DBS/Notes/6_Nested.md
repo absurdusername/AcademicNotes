@@ -68,7 +68,7 @@ where course_id in (
     select course_id 
     from section
     group by course_id
-    having count(*) = 1
+    having count(*) <= 1
 );
 ```
 
