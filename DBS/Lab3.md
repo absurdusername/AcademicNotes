@@ -152,16 +152,16 @@ where 1 >= (
 ```
 
 ```sql
-select S.ID, S.name
+select distinct S.ID, S.name
 from student S
-where 2 >= (
+where 1 < (
     select count(*)
     from takes T
     where T.ID = S.ID and 
         T.course_id in (
             select course_id 
             from course
-            where dept_name = 'CSE'
+            where dept_name = 'Comp. Sci.'
         )
 );
 ```
