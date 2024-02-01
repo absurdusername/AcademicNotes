@@ -1,24 +1,32 @@
 ## Set Operations
 
+```sql
+create view fall2009 as
+select course_id, title from course natural join section where (semester='Fall' and year=2009);
+
+create view spring2010 as
+select course_id, title from course natural join section where (semester='Spring' and year=2010);
+```
+
 #### Union: Find courses that ran in Fall 2009 OR Spring 2010
 ```sql
-select course_id, title from course natural join section where (semester='Fall' and year=2009) 
+select * from fall2009 
 union
-select course_id, title from course natural join section where (semester='Spring' and year=2010);
+select * from spring2010;
 ```
 
 #### Intersection: AND
 ```sql
-select course_id, title from course natural join section where (semester='Fall' and year=2009) 
+select * from fall2009 
 intersect
-select course_id, title from course natural join section where (semester='Spring' and year=2010);
+select * from spring2010;
 ```
 
 #### Minus
 ```sql
-select course_id, title from course natural join section where (semester='Fall' and year=2009) 
+select * from fall2009 
 minus
-select course_id, title from course natural join section where (semester='Spring' and year=2010);
+select * from spring2010;
 ```
 
 #### Zero-student courses
@@ -32,14 +40,12 @@ select title from course natural join takes;
 ### Nested Queries
 
 ```sql
-select distinct course_id, title
-from section natural join course
-where semester = 'Fall' and year = 2009 and
-    course_id in (
-    	select course_id
-        from section
-        where semester = 'Spring' and year = 2010
-    );
+select * from fall2009
+where course_id in (
+    select course_id
+    from section
+    where semester = 'Spring' and year = 2010
+);
 ```
 
 ```sql
@@ -53,14 +59,12 @@ where course_id in (
 ```
 
 ```sql
-select course_id, title
-from section natural join course
-where semester = 'Fall' and year = 2009 and
-    course_id not in (
-        select course_id
-        from section
-        where semester = 'Spring' and year = 2010
-    );
+select * from fall2009 
+where course_id not in (
+    select course_id
+    from section
+    where semester = 'Spring' and year = 2010
+);
 ```
 
 ```sql
@@ -117,15 +121,12 @@ where budget < (
 ### Test for empty relations
 
 ```sql
-select course_id, title
-from course natural join section
-where semester = 'Fall' and year = 2009 and
-	exists (
-    	select *
-    	from course natural join section
-    	where semester = 'Spring' and year = 2010
-    );
-
+select * from fall2009
+where exists (
+    select *
+    from course natural join section
+    where semester = 'Spring' and year = 2010
+);
 ```
 
 ```sql
