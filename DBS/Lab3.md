@@ -157,7 +157,12 @@ from student S
 where 2 >= (
     select count(*)
     from takes T
-    where T.ID = S.ID
+    where T.ID = S.ID and 
+        T.course_id in (
+            select course_id 
+            from course
+            where dept_name = 'CSE'
+        )
 );
 ```
 
