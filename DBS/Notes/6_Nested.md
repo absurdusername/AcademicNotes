@@ -68,18 +68,20 @@ where course_id in (
     select course_id 
     from section
     group by course_id
-    having count(*) > 1
+    having count(*) = 1
 );
 ```
 
 #### Lateral joins
+
+*Dont' use lateral joins! Use with-clause instead.*
 
 [Explanation](https://docs.snowflake.com/en/sql-reference/constructs/join-lateral) by Snowflake
 
 ```sql
 select I1.name, I1.salary, dept_avg_salary
 from instructor I1, lateral (
-    select avg(salary) as dept_avg_salary
+    select avg(salary) **as dept_avg_salary**
     from instructor I2
     where I1.dept_name = I2.dept_name
 );
@@ -138,4 +140,34 @@ select dept_name,
      from instructor 
      where department.dept_name = instructor.dept_name) head_count
 from department;
+```
+
+#### Bulk loader
+
+```sql
+insert into instructor
+select ID, name, dept_name, 18000
+from student
+where dept_name = 'Music' and tot_cred > 144;
+```
+
+#### Case-end
+
+```sql
+update instructor
+set salary = case 
+    when salary <= 10000 then salary * 1.05 
+    else salary 
+end
+```
+
+General form
+
+```sql
+case
+when predicate_0 then result_0
+...
+when predciate_n then result_n
+else default_value
+end
 ```
