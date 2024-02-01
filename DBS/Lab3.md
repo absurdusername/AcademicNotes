@@ -246,7 +246,8 @@ with department_salaries as (
     select dept_name, sum(salary) as value
     from instructor
     group by dept_name
-) select department.dept_name, value
+) 
+select department.dept_name, value
 from department, department_salaries
 where department.dept_name = department_salaries.dept_name;
 ```
@@ -257,7 +258,8 @@ with department_salaries(dept_name, value) as (
     select dept_name, sum(salary)
     from instructor
     group by dept_name
-) select department.dept_name, value
+) 
+select department.dept_name, value
 from department, department_salaries
 where department.dept_name = department_salaries.dept_name;
 ```
