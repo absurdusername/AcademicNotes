@@ -49,3 +49,40 @@ select *
 from prereq
 order by course_id asc;
 ```
+
+#### 7
+```sql
+select *
+from instructor
+order by salary desc;
+```
+
+#### 8
+```sql
+select max(tot_salary)
+from (
+    select dept_name, sum(salary) as tot_salary
+	from instructor
+	group by dept_name
+);
+```
+
+#### 9
+```sql
+select dept_name, avg_salary
+from (
+    select dept_name, avg(salary) as avg_salary
+    from instructor
+    group by dept_name
+) where avg_salary > 42000;
+```
+
+
+
+
+
+
+
+
+
+
