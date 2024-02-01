@@ -1,13 +1,11 @@
 # Nested Queries
 
-### Set membership
+#### Set membership
 
 ```sql
 select ...
 where col in (select ...);
 ```
-
-### Set comparision
 
 #### Some
 
