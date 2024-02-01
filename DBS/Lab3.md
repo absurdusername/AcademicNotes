@@ -159,9 +159,9 @@ where not exists (
 );
 ```
 
-#### 15
-
 ### Test for absence of duplicates
+
+#### 15
 
 ```sql
 select C.course_id
