@@ -32,9 +32,6 @@ to check if linked list contains a value
 
 to display the linked list
 > display(ll);
-
-to reverse a linked list (in memory)
-> reverse(&ll);
 */
 
 /* --- GRAPHS --- */
