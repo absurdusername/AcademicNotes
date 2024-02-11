@@ -1,6 +1,10 @@
 # Joins
 
-#### Natural join using only specific columns
+![A table listing all SQL join types and conditions](assets/sql_join_types.png "SQL join types")
+
+Writing `inner` is always optional.
+
+#### Natural (inner) join using only specific columns
 
 ```sql
 select * from r1 join r2 using (A1, A2);
