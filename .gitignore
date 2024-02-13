@@ -4,10 +4,17 @@
 # directories
 !*/
 
+# repo
 !*.md
 !.gitignore
 
+# C
 !*.c
+!*.h
+
+# Python
 !*.py
-!*.sql
 !*.ipynb
+
+# SQL
+!*.sql
