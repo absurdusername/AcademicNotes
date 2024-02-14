@@ -1,8 +1,7 @@
 #include "../collections/io.h"
-#include <stdio.h>
 
-void quicksort(int arr[], int low, int high);
-int partition(int arr[], int low, int high);
+void quicksort(int A[], int low, int high);
+int partition(int A[], int low, int high);
 
 void swap(int *a, int *b) {
     int tmp = *a;
@@ -10,33 +9,32 @@ void swap(int *a, int *b) {
     *b = tmp;
 }
 
-void quicksort(int arr[], int low, int high) {
+void quicksort(int A[], int low, int high) {
     if (low < high) {
-        int p = partition(arr, low, high);
-        quicksort(arr, low, p - 1);
-        quicksort(arr, p + 1, high);
+        int p = partition(A, low, high);
+        quicksort(A, low, p - 1);
+        quicksort(A, p + 1, high);
     }
 }
 
-int partition(int arr[], int low, int high) {
-    // Move pivot to its right position and return its index.
-
-    int p = high; // pivot element index
-    int firsthigh = low; // divider position for pivot index
+int partition(int A[], int low, int high) {
+    int pivot = A[high];
+    int divider = low; // all in A[0..divider - 1] are less than pivot
 
     for (int i = low; i < high; i++) {
-        if (arr[i] < arr[p]) {
-            swap(&arr[i], &arr[firsthigh]);
-            firsthigh++;
+        if (A[i] < pivot) {
+            swap(&A[i], &A[divider]);
+            divider++;
         }
     }
-    swap(&arr[p], &arr[firsthigh]);
-    return firsthigh;
+
+    swap(&A[high], &A[divider]);
+    return divider;
 }
 
 int main() {
-    int *a, n;
-    input_array(&a, &n);
-    quicksort(a, 0, n - 1);
-    display_array(a, n);
+    int *A, n;
+    input_array(&A, &n);
+    quicksort(A, 0, n - 1);
+    display_array(A, n);
 }
