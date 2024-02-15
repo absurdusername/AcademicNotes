@@ -77,4 +77,23 @@ begin
 end;
 /
 ```
+
+#### Question 4
+```
+declare
+    l_letter_grade char(2);
+begin
+    for s in (select * from student)
+    loop
+        if s.gpa >= 9 then
+            l_letter_grade := 'A+';
+        elsif s.gpa >= 8 then
+            l_letter_grade := 'A';
+        else 
+            l_letter_grade := 'F';
+        end if;
+        dbms_output.put_line(s.roll_number || ': ' || l_letter_grade);
+    end loop;
+end;
+/
 ```
