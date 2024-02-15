@@ -47,3 +47,34 @@ begin
     dbms_output.put_line('Letter grade: ' || l_letter_grade);
 end;
 ```
+
+### Question 3
+
+```sql
+declare
+    l_issue_date date;
+    l_return_date date;
+    l_days number;
+    l_fine number;
+begin
+    l_issue_date := to_date('&issue_date', 'DD/MM/YYYY');
+    l_return_date := to_date('&return_date', 'DD/MM/YYYY');
+
+    l_days := l_return_date - l_issue_date;
+    
+    case
+    when l_days <= 7 then
+        l_fine := 0;
+    when l_days >= 8 and l_days <= 15 then
+        l_fine := l_days * 1;
+    when l_days >= 16 and l_days <= 30 then
+        l_fine := l_days * 2;
+    else
+        l_fine := l_days * 5;
+    end case;
+
+    dbms_output.put_line('Fine: ' || l_fine);
+end;
+/
+```
+```
