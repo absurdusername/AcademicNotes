@@ -53,7 +53,7 @@ where semester = 'Fall' and year = 2009 and
     );
 ```
 
-This is a correlation subquery, because `S` from the outer query is used in the subquery.
+This is a so-called **correlation subquery**, because `S` from the outer query is used in the subquery.
 
 `not exists()` also exists.
 
