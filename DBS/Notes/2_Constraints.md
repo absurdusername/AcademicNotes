@@ -3,23 +3,22 @@
 #### Creating tables with constraints
 
 ```sql
-create table employees(
-    id				int             primary key,
-    another_id		int             unique,
-    name			varchar(40)     not null,
-    department      char(3)         default('DEF'),
-    check(department in ('ABC', 'DEF'))
+create table test(
+    a int primary key,
+    b int not null,
+    c int unique,
+    d varchar(3) default 'abc',
+    check(d in ('abc', 'def'))
 );
 
 create table slaves(
     slave_id	int,
     primary key(slave_id),
-    foreign key(slave_id) references employees,
-    foreign key(slave_id) references another_table on delete cascade
+    foreign key(slave_id) references employees on delete cascade
 );
 
 create table another_way(
-    id  int references employees(id) on delete cascade
+    id int references employees(id) on delete cascade
 );
 ```
 
