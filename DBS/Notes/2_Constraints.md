@@ -45,6 +45,9 @@ add primary key(id);
 
 alter table slaves
 add foreign key(id) references some_other_table;
+
+alter table table_name
+add unique(col_name);
 ```
 
 #### To externally add a not null or default constraint
