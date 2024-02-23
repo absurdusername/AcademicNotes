@@ -1,8 +1,32 @@
 # Cursors
 
-Look up implicit cursors in the lab manual. Only took notes on explicit cursors.
+Look up things like `SQL%notfound` in the lab manual.
 
-### Basic exmaple
+### Implicit and explicit cursors
+
+Implicit cursor
+```sql
+begin
+    for i in (select * from instructor) loop
+		dbms_output.put_line(i.name);
+    end loop;
+end;
+```
+
+Explicit cursor
+
+```sql
+declare 
+    cursor c is 
+    	select * from instructor;
+begin
+	for i in c loop
+		dbms_output.put_line(i.name);
+    end loop;
+end;
+```
+
+### Another example 
 
 ```sql
 declare
