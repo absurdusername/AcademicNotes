@@ -1,9 +1,6 @@
 from random import shuffle, randint
 import os
 
-# size of the board (N x N)
-N = int(input("N: "))
-
 class ChessBoard:
     """A configuration of the chess board
     
@@ -66,9 +63,7 @@ class ChessBoard:
                     neighbor_config[i] = j
                     result.append(ChessBoard(neighbor_config))
 
-        shuffle(result) # UNDER NO CIRCUMSTANCE SHALL I TOUCH THIS
-        # REMOVE THIS AND AN INFINITE RECURSION MIGHT HAPPEN
-
+        shuffle(result) # PREVENTS INFINITE RECURSION MOST OF THE TIME
         return result 
     
     def __hash__(self):
@@ -90,6 +85,9 @@ def hill_climb_racing(initial_state: ChessBoard) -> ChessBoard:
     return current
 
 if __name__ == "__main__":
+    # size of the board (N x N)
+    N = int(input("N: "))
+
     initial_state = ChessBoard() 
     solution = hill_climb_racing(initial_state)
     os.system("clear")
