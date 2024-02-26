@@ -35,6 +35,6 @@ class ExtendedChessBoard(ChessBoard):
 
 
 if __name__ == "__main__":
-    solutions = ExtendedChessBoard(n=8).solutions()
+    solutions = ExtendedChessBoard().solutions()
     for solution in solutions:
         print(solution)
