@@ -38,3 +38,4 @@ if __name__ == "__main__":
     solutions = ExtendedChessBoard().solutions()
     for solution in solutions:
         print(solution)
+    print(len(solutions))
