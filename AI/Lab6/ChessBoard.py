@@ -76,7 +76,7 @@ class ChessBoard:
         return self.config == other.config
 
 
-def hill_climb_racing(initial_state: ChessBoard) -> ChessBoard:
+def hill_climb(initial_state: ChessBoard) -> ChessBoard:
     print(initial_state)
     current = initial_state
 
@@ -89,7 +89,7 @@ def hill_climb_racing(initial_state: ChessBoard) -> ChessBoard:
 
 
 if __name__ == "__main__":
-    n= int(input("N: "))  # size of the board (N x N)
-    initial_state = ChessBoard(n=n)  # randomly-configured chess board
-    solution = hill_climb_racing(initial_state)
+    n = int(input("N: "))  # size of the board (N x N)
+    board = ChessBoard(n=n)  # randomly-configured chess board
+    solution = hill_climb(board)
     print(solution)
