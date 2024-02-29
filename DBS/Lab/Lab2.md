@@ -4,21 +4,21 @@
 ```sql
 create table employees(
 	emp_id		int				primary key,
-    emp_name	varchar(40)		not null,
-    gender		char(1)			not null,
-    salary		number(12, 2)	not null,
-    address		varchar(40)		not null,
-    dept_id		int,
-    check(gender in ('M', 'F'))
+	emp_name	varchar(40)		not null,
+	gender		char(1)			not null,
+	salary		number(12, 2)	not null,
+	address		varchar(40)		not null,
+	dept_id		int,
+	check(gender in ('M', 'F'))
 );
 ```
 
 #### Creating table departments
 ```sql
 create table departments(
-    dept_id		int				primary key,
-    dept_name	varchar(40)		unique,
-    location	varchar(40)
+	dept_id		int				primary key,
+	dept_name	varchar(40)		unique,
+	location	varchar(40)
 );
 ```
 
@@ -63,7 +63,7 @@ drop constraint dept_id_const;
 alter table employees
 add constraint dept_id_const
 	foreign key(dept_id) 
-    references departments(dept_id)
+	references departments(dept_id)
 	on delete cascade;
 ```
 
@@ -121,9 +121,9 @@ where year = 2015;
 select name, salary as "inst-salary"
 from instructor
 where salary > (
-    select min(salary)
-    from instructor
-    where dept_name = 'Comp. Sci.'
+	select min(salary)
+	from instructor
+	where dept_name = 'Comp. Sci.'
 );
 ```
 
