@@ -5,8 +5,7 @@ create or replace procedure display_hello is
 begin
 	dbms_output.put_line('Good day to you.');
 end;
-
-exec display_hello; -- run this separately
+/
 
 -- Question 2
 -- ==========
@@ -28,10 +27,12 @@ begin
 		dbms_output.put_line(c.course_id || ' ' || c.title);
     end loop;
 end;
+/
 
 begin
 	dept_info('&department');
 end;
+/
 
 -- Question 3
 -- ==========
@@ -58,12 +59,14 @@ begin
         end if;
     end loop;
 end;
+/
 
 begin
     for r in (select * from department) loop
 		course_popular(r.dept_name);
     end loop;
 end;
+/
 
 -- Question 4
 -- ==========
@@ -77,10 +80,12 @@ create or replace function square(x number) return number is
 begin
     return x * x;
 end;
+/
 
 begin
     dbms_output.put_line(square(5));
 end;
+/
 
 -- Question 6
 -- ==========
@@ -103,6 +108,7 @@ begin
 
 	return v_name;
 end;
+/
 
 declare
 	cursor dept_cursor is 
@@ -112,14 +118,15 @@ begin
 		dbms_output.put_line(r.dept_name || ': ' || department_highest(r.dept_name));
 	end loop;
 end;
+/
 
 -- Question 7
 -- ==========
-
 create or replace package department_operations is
 	procedure list_instructors(v_dept_name department.dept_name%type);
 	function max_salary(v_dept_name department.dept_name%type) return number;
 end department_operations;
+/
 
 create or replace package body department_operations is 
 	procedure list_instructors(v_dept_name department.dept_name%type) is
@@ -145,13 +152,14 @@ create or replace package body department_operations is
 		return v_max_salary;
     end;
 end department_operations;
+/
 
 begin
 	department_operations.list_instructors('Comp. Sci.');
 	dbms_output.put_line('Highest salary: ' ||
         department_operations.max_salary('Comp. Sci.'));
 end;
-
+/
 -- Question 8
 -- ==========
 
