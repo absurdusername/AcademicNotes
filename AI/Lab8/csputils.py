@@ -45,7 +45,7 @@ class CSP:
         return all(
             const.holds(assignment)
             for const in self.constraints
-            if all(v in assignment for v in const.scope)
+            if all(assignment[v] is not None for v in const.scope)
         )
     
     @classmethod
