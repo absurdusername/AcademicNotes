@@ -34,7 +34,7 @@ class CSP:
 
         carry = 0
         for x, y, z in itertools.zip_longest(a, b, t):
-            vx, vy, vz = assignment.get(x, 0), assignment.get(y, 0), assignment.get(z, 0)
+            vx, vy, vz = assignment[x], assignment[y], assignment[z]
             if None in (vx, vy, vz):
                 return True
             if vz != (vx + vy + carry) % 10:
