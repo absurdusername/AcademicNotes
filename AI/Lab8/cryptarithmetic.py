@@ -1,4 +1,4 @@
-import itertools
+from itertools import zip_longest
 
 class CSP:
     def __init__(self, words, target):
@@ -26,7 +26,7 @@ class CSP:
         reversed_target = reversed(self.target)
 
         carry = 0
-        for col in itertools.zip_longest(*reversed_words, reversed_target):
+        for col in zip_longest(*reversed_words, reversed_target):
             col_values = [assignment.get(letter, None) for letter in col if letter is not None]
 
             if None in col_values:
@@ -75,7 +75,7 @@ if __name__ == "__main__":
 
     csp = CSP(words, target)
     solution = backtracking_search(csp)
-    
+
     if solution:
         print("Solution: ", solution)
     else:
