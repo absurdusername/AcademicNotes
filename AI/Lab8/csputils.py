@@ -1,56 +1,43 @@
-class Constraint:
-    """
-    Attributes:
-        scope (list): list of variables involved
-        condition (Callable): a boolean function on the scope variables.
-    """
-    def __init__(self, scope, condition):
-        self.scope = scope
-        self.condition = condition
-
-    def holds(self, assignment):
-        """Returns True if constraint holds for given assignment
-        Variables in constraint scope must be initialized.
-        """
-        return self.condition(*tuple(assignment[v] for v in self.scope))
-        
+import itertools
 
 class CSP:
     """A CSP problem instance
 
     Attributes:
-        domains (dict): variable -> domain (iterable)
-        constraints (list): list of all constraints
-
         variables (set): set of all variables
-        var_to_const (dict): variable -> set of applicable constraints
-    """
-    def __init__(self, domains, constraints):
-        self.domains = domains
-        self.constraints = constraints
+        domain (dict): variable -> domain (iterable)
 
-        self.variables = set(domains)
-        self.var_to_const = {var: set() for var in self.variables}
-        for const in constraints:
-            for var in const.scope:
-                self.var_to_const[var].add(const)
+        word1 (str): first word
+        word2 (str): second word
+        target (str): word1 + word2 := target defines the problem
+    """
+    def __init__(self, word1, word2, target):
+        self.word1 = word1
+        self.word2 = word2
+        self.target = target
+
+        self.variables = set(word1).union(word2).union(target)
+        self.domain = {v: range(10) for v in self.variables}
+
+        if len(target) > max(len(word1), len(word2)):
+            self.domain[target[0]] = (1,)
     
-    def consistent(self, assignment):
-        """Returns True if all applicable constraints are satisfied by the 
-            assignment
+    def is_consistent(self, assignment):
+        """Returns True if the assignment is not inconsistent so far
 
         Args:
             assignment (dict): variable -> value
         """
-        return all(
-            const.holds(assignment)
-            for const in self.constraints
-            if all(assignment[v] is not None for v in const.scope)
-        )
-    
-    @classmethod
-    def from_words(word1, word2, target):
-        """Create and return a CSP instance
-        Represents the problem word1 + word2 = target
-        """
-        pass
+        a = reversed(self.word1)
+        b = reversed(self.word2)
+        t = reversed(self.target)
+
+        carry = 0
+        for x, y, z in itertools.zip_longest(a, b, t):
+            vx, vy, vz = assignment.get(x, 0), assignment.get(y, 0), assignment.get(z, 0)
+            if None in (vx, vy, vz):
+                return True
+            if vz != (vx + vy + carry) % 10:
+                return False
+            carry = 1 if (vx + vy + carry) >= 10 else 0
+        return True

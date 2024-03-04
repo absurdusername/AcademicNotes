@@ -1,25 +1,15 @@
-def domain(var):
-    if var == "B":
-        return (1,)
-    return (i for i in range(10))
+from csputils import CSP
 
-def is_consistent(assignment):
-    A = assignment["A"]
-    B = assignment["B"]
-    C = assignment["C"]
-
-    if None in (A, B, C):
-        return True
-    if A == 6 and B == 1 and C == 2:
-        return True
-    return False
-
-def backtracking_search(assignment):
+def backtracking_search(csp, assignment, available):
     """Returns a solution if found, else None
     
     Args:
-        assignment (dict): variable -> assigned value or None.
+        csp (CSP): a problem instance
+        assignment (dict): variable -> assigned value
+        available (set): unassigned digits
     """
+    if not assignment:
+        assignment = {v: None for v in csp.variables} 
 
     # pick an unassigned variable, default is None
     var = next((v for v in assignment if assignment[v] is None), None)
@@ -28,20 +18,22 @@ def backtracking_search(assignment):
     if var is None: 
         return assignment
 
-    for value in domain(var):
+    for value in csp.domain[var]:
+        if value not in available:
+            continue
+
         assignment[var] = value
-        if is_consistent(assignment): 
-            result = backtracking_search(assignment)
+        available.remove(value)
+        if csp.is_consistent(assignment): 
+            result = backtracking_search(csp, assignment, available)
             if result is not None:
                 return result
         assignment[var] = None # don't miss this
+        available.add(value)
 
     return None
 
 if __name__ == "__main__":
-    variables = {"A", "B", "C"}
-    d = {v: None for v in variables}
-
-    solution = backtracking_search(d)
+    csp = CSP("SEND", "MORE", "MONEY")
+    solution = backtracking_search(csp, dict(), {i for i in range(10)})
     print(solution)
-    is_consistent(solution)
