@@ -1,5 +1,9 @@
 from csputils import CSP
 
+def is_solvable(csp):
+    solution = backtracking_search(csp, dict(), {i for i in range(10)})
+    return True if solution else False
+
 def backtracking_search(csp, assignment, available):
     """Returns a solution if found, else None
     
@@ -34,6 +38,8 @@ def backtracking_search(csp, assignment, available):
     return None
 
 if __name__ == "__main__":
-    csp = CSP("SEND", "MORE", "MONEY")
-    solution = backtracking_search(csp, dict(), {i for i in range(10)})
-    print(solution)
+    word1 = input("Word 1: ").strip()
+    word2 = input("Word 2: ").strip()
+    target = input("Sum: ").strip()
+    csp = CSP(word1, word2, target)
+    print(is_solvable(csp))
