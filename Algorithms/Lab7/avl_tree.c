@@ -86,6 +86,32 @@ void inorder(node *n) {
     }
 }
 
+int successor(node *root, int x) {
+    node *parent = NULL;
+    node *n = root;
+
+    while (n != NULL && n->value != x) {
+        if (n->value < x) {
+            n = n->right;
+        } else {
+            parent = n;
+            n = n->left;
+        }
+    }
+
+    if (n == NULL) return -1;
+    
+    if (n->right != NULL) {
+        node *succ = n->right;
+        while (succ->left != NULL) succ = succ->left;
+        return succ->value;
+    } else if (parent != NULL) {
+        return parent->value;
+    }
+    
+    return -1;
+}
+
 int main() {
     node *root = NULL;
 
@@ -100,4 +126,10 @@ int main() {
     printf("Tree height: %d\n", root->height);
     printf("Elements: ");
     inorder(root);
+
+    int x;
+    printf("\n\nEnter a value: ");
+    scanf("%d", &x);
+    printf("Sucessor: %d\n", successor(root, x));
+    // too lazy to implement predecessor() now...
 }
