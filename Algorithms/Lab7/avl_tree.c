@@ -112,6 +112,32 @@ int successor(node *root, int x) {
     return -1;
 }
 
+int predecessor(node *root, int x) {
+    node *parent = NULL;
+    node *n = root;
+
+    while (n != NULL && n->value != x) {
+        if (n->value < x) {
+            parent = n;
+            n = n->right;
+        } else {
+            n = n->left;
+        }
+    }
+
+    if (n == NULL) return -1;
+
+    if (n->left != NULL) {
+        node *pred = n->left;
+        while (n->right != NULL) pred = pred->right;
+        return pred->value;
+    } else if (parent != NULL) {
+        return parent->value;
+    }
+
+    return -1;
+}
+
 int main() {
     node *root = NULL;
 
@@ -131,5 +157,5 @@ int main() {
     printf("\n\nEnter a value: ");
     scanf("%d", &x);
     printf("Sucessor: %d\n", successor(root, x));
-    // too lazy to implement predecessor() now...
+    printf("Predecessor: %d\n", predecessor(root, x));
 }
