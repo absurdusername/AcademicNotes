@@ -19,8 +19,8 @@ void merge(int arr[], int low, int middle, int high) {
     list *buffer2 = NULL;
 
     // Store the elements in a buffer
-    for (int i = low; i < middle; i++) append_right(&buffer1, arr[i]);
-    for (int i = middle; i <= high; i++) append_right(&buffer2, arr[i]);
+    for (int i = low; i <= middle; i++) append_right(&buffer1, arr[i]);
+    for (int i = middle + 1; i <= high; i++) append_right(&buffer2, arr[i]);
 
     // Merge buffered elementes into array
     int i = low;
