@@ -19,24 +19,27 @@ void merge(int arr[], int low, int middle, int high) {
     list *buffer2 = NULL;
 
     // Store the elements in a buffer
-    for (int i = low; i <= middle; i++) append_right(&buffer1, arr[i]);
-    for (int i = middle + 1; i <= high; i++) append_right(&buffer2, arr[i]);
+    for (int i = low; i <= middle; i++) 
+        append_right(&buffer1, arr[i]);
+    for (int i = middle + 1; i <= high; i++) 
+        append_right(&buffer2, arr[i]);
 
     // Merge buffered elementes into array
     int i = low;
-    while (buffer1 || buffer2) {
-        if (buffer1 == NULL) {
-            arr[i++] = pop_left(&buffer2);
-        } else if (buffer2 == NULL) {
+
+    while (buffer1 && buffer2) {
+        if (peek_left(buffer1) < peek_left(buffer2))
             arr[i++] = pop_left(&buffer1);
-        } else {
-            if (peek_left(buffer1) < peek_left(buffer2)) {
-                arr[i++] = pop_left(&buffer1);
-            } else {
-                arr[i++] = pop_left(&buffer2);
-            }
-        }
+        else
+            arr[i++] = pop_left(&buffer2);
     }
+
+    while (buffer1)
+        arr[i++] = pop_left(&buffer1);
+    
+    
+    while (buffer2)
+        arr[i++] = pop_left(&buffer2);
 }
 
 int main() {
