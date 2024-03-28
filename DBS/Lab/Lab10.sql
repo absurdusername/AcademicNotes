@@ -68,3 +68,61 @@ end;
 
 -- to demonstrate an error
 insert into instructor values(52343, 'Krishanu', 'Comp. Sci.', 999999);
+
+-- Question 4
+
+create table client_master(
+    client_id	number,
+    name		varchar(100),
+    address		varchar(100),
+    balance		number
+);
+
+create table audit_client(
+    client_id 	number,
+    name		varchar(100),
+    balance		number,
+    operation	varchar(6),
+    user_id		varchar(30),
+    opdate		date
+);
+
+create or replace trigger client_master_logger
+before update or delete on client_master
+for each row
+declare
+    v_operation varchar(6);
+begin
+    v_operation := case
+		when updating then 'UPDATE'
+    	when deleting then 'DELETE'
+    end;
+
+	insert into audit_client values(:OLD.client_id, :OLD.name, :OLD.balance,
+    	v_operation, user, sysdate);
+end;
+
+-- demo
+insert into client_master values(100, 'Krishanu', 'Bangalore', 1000);
+update client_master set balance = 999 where id = 100;
+select * from audit_client;
+
+-- Question 5
+
+create view advisor_student as
+select s_id, student.name as s_name, i_id, instructor.name as i_name
+from (student join advisor on student.id = advisor.s_id)
+	join instructor on instructor.id = advisor.i_id;
+
+
+create or replace trigger advisor_student_deletion_monitor
+instead of delete on advisor_student
+for each row
+begin
+	delete from advisor A
+    where A.s_id = :OLD.s_id and A.i_id = :OLD.i_id;
+end;
+
+-- demo
+delete from advisor_student where i_name like 'Einstein';
+select * from advisor_student; -- no more Einstein
