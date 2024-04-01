@@ -33,10 +33,12 @@ int horspool_search(char *T, char *P) {
         while (k <= m - 1 && P[m - 1 - k] == T[i - k])
             k++;
         
-        if (k == m) 
+        if (k == m) {
             return i - m + 1;
-        else 
-            i += table[T[i]];
+        } else {
+            int shift = k < table[T[i]] ? table[T[i]] : 1;
+            i += 1;
+        }
     }
     
     return -1;
