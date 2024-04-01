@@ -1,21 +1,21 @@
 #ifndef LINKED_LIST_H_
 #define LINKED_LIST_H_
 
-typedef struct list {
+typedef struct node {
     int item; // int defined in linked_list.h
-    struct list *next;
-} list;
+    struct node *next;
+} node;
 
-int search_list(list *l, int x);
+int search_list(node *l, int x);
 
-void append_left(list **l, int x);
-void append_right(list **l, int x);
+void append_left(node **l, int x);
+void append_right(node **l, int x);
 
-int pop_left(list **l);
-int pop_right(list **l);
+int pop_left(node **l);
+int pop_right(node **l);
 
-int peek_left(list *l);
+int peek_left(node *l);
 
-void display_list(list *l);
+void display_list(node *l);
 
 #endif

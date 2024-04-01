@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include "linked_list.h"
 
-// `int` and `list` defined in linked_list.h
+// `int` and `node` defined in linked_list.h
 
-int search_list(list *l, int x) {
+int search_list(node *l, int x) {
     // Return 1 if the list contains x, 0 otherwise
-    for (list *current = l; current != NULL; current = current->next) {
+    for (node *current = l; current != NULL; current = current->next) {
         if (current->item == x) {
             return 1;
         }
@@ -14,17 +14,17 @@ int search_list(list *l, int x) {
     return 0;
 }
 
-void append_left(list **l, int x) {
+void append_left(node **l, int x) {
     // Insert x to the left of the list
-    list *p = malloc(sizeof(list));
+    node *p = malloc(sizeof(node));
     p->item = x;
     p->next = *l;
     *l = p;
 }
 
-void append_right(list **l, int x) {
+void append_right(node **l, int x) {
     // Insert x to the right of the list
-    list *p = malloc(sizeof(list));
+    node *p = malloc(sizeof(node));
     p->item = x;
     p->next = NULL;
 
@@ -35,21 +35,21 @@ void append_right(list **l, int x) {
     }
 
     // If the list is not empty
-    list *walk = *l;
+    node *walk = *l;
     while (walk->next) {
         walk = walk->next;
     }
     walk->next = p;
 }
 
-int pop_left(list **l) {
+int pop_left(node **l) {
     // Pop the left-most value, return 0 if list is empty
     if (*l == NULL) {
         return 0;
     }
 
     int x = (*l)->item;
-    list *p = *l;
+    node *p = *l;
     
     *l = (*l)->next;
     free(p);
@@ -57,7 +57,7 @@ int pop_left(list **l) {
     return x;
 }
 
-int pop_right(list **l) {
+int pop_right(node **l) {
     // Pop the right-most value, return 0 if list is empty
 
     // If the list is empty
@@ -74,8 +74,8 @@ int pop_right(list **l) {
     }
 
     // Otherwise when the list has >= 2 elements
-    list *p = *l;           // to store the second-last element
-    list *q = (*l)->next;   // to store the last element
+    node *p = *l;           // to store the second-last element
+    node *q = (*l)->next;   // to store the last element
 
     while (q->next) {
         p = q;
@@ -86,15 +86,15 @@ int pop_right(list **l) {
     return pop_right(&q); // q is a list with one element, see above
 }
 
-void display_list(list *l) {
+void display_list(node *l) {
     // Display the contents of the list
-    for (list *walk = l; walk != NULL; walk = walk->next) {
+    for (node *walk = l; walk != NULL; walk = walk->next) {
         printf("%d ", walk->item);
     }
     printf("\n");
 }
 
-int peek_left(list *l) {
+int peek_left(node *l) {
     // Peek the left-most element, 0 if list is empty
     if (l == NULL) {
         return 0;
