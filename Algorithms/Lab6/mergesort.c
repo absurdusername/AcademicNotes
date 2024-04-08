@@ -15,8 +15,8 @@ void mergesort(int arr[], int low, int high) {
 }
 
 void merge(int arr[], int low, int middle, int high) {
-    list *buffer1 = NULL;   // queue to hold elements for merging
-    list *buffer2 = NULL;
+    node *buffer1 = NULL;   // queue to hold elements for merging
+    node *buffer2 = NULL;
 
     // Store the elements in a buffer
     for (int i = low; i <= middle; i++) 
