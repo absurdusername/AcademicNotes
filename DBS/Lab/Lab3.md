@@ -263,3 +263,13 @@ select department.dept_name, value
 from department, department_salaries
 where department.dept_name = department_salaries.dept_name;
 ```
+
+Or simply
+```sql
+select dept_name, (
+    select sum(salary) 
+    from instructor I
+    where I.dept_name = D.dept_name
+) as dept_total_salary
+from department D;
+```
